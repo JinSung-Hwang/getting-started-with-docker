@@ -7,7 +7,7 @@
 언제 어디서나 도커 엔진위에서 독립되고 동일한 개발 환경 구축을 위해서 사용한다.
 
 도커 활용 예시는 아래와 같다.
-  1. 어플리케이션에 독립된 실행환경 제공
+  1. 어플리케이션에 독립된 실행 환경 제공
   2. 다중 OS 사용
   3. 각 staging별로 동일한 환경 구축
 
@@ -79,22 +79,23 @@
 
 ## 도커 컨테이너 구성
 
-도커 컨테이너는 Image Layer + Read/Write Layer로 이루어져있다.
-또한 Image Layer 는 Dockerfile에 정의되어있는 명령어들을 통해서 여러 Only Read Layer로 이루어져있다. ( Workdir, Run, Add, Copy 명령어는 레이어로 생성된다)
-여기서 Image Layer는 Dockerfile을 통해서만 변경할 수 있고 컨테이너가 실행되면서 기록되는 내용들은 Read/Write Layer에 저장된다.
+도커 컨테이너는 Image Layer + Read/Write Layer로 이루어져있다. </br>
+또한 Image Layer 는 Dockerfile에 정의되어있는 명령어들을 통해서 여러 Only Read Layer로 이루어져있다. ( Workdir, Run, Add, Copy 명령어는 레이어로 생성된다) </br>
+여기서 Image Layer는 Dockerfile을 통해서만 변경할 수 있고 컨테이너가 실행되면서 기록되는 내용들은 Read/Write Layer에 저장된다. </br>
 
 ## 도커 빌드 시간 줄이기
 
 ### 도커 레이어 캐시란?
 
-도커 레이어 캐시란 이미지를 빌드할때 Layer를 캐시하고 있다가 다시 동일하게 이미지가 빌드될때는 Layer의 변경점이 없으면 Cache된 레이어를 사용하는것을 말한다.
-만약 도커 이미지가 빌드 될때마다 Layer를 다시 실행시키고 생성한다면 비효율적일것이다. 특히 대규모 서비스를 제공하는 곳이라면 매우 비효율적일것이다.
-레이어 캐시는 로컬에서는 자동으로 Layer를 캐시해주기때문에 문제가 없지만 Github Action, CircleCI같은 CI/CD 툴을 실행될때마다 매번 다른 가상환경을 제공한다. 그렇기 때문에 각 CI/CD 툴에 따라서 도커 레이어 캐시 방식이 조금씩 다를수있다. 
-Github Action에서는 `GitHub Cache API` 을 통해서 도커 레이어를 캐시할수있다.
+도커 레이어 캐시란 이미지를 빌드할때 Layer를 캐시하고 있다가 다시 동일하게 이미지가 빌드될때는 Layer의 변경점이 없으면 Cache된 레이어를 사용하는것을 말한다. </br>
+만약 도커 이미지가 빌드 될때마다 Layer를 다시 실행시키고 생성한다면 비효율적일것이다. 특히 대규모 서비스를 제공하는 곳이라면 매우 비효율적일것이다.</br>
+레이어 캐시는 로컬에서는 자동으로 Layer를 캐시해주기때문에 문제가 없지만 Github Action, CircleCI같은 CI/CD 툴을 실행될때마다 매번 다른 가상환경을 제공한다. </br>
+그렇기 때문에 각 CI/CD 툴에 따라서 도커 레이어 캐시 방식이 조금씩 다를수있다. </br>
+Github Action에서는 `GitHub Cache API` 을 통해서 도커 레이어를 캐시할수있다. </br>
 
 ### 도커 이미지 경량화
 
-도커 이미지가 무거우면 빌드시간이 오래 걸릴수 있다. 
+도커 이미지가 무거우면 빌드시간이 오래 걸릴수 있다. </br>
 아래와 같은 방법들로 도커 이미지를 경량화하여 빌드시간을 줄 일 수 있다. 
   1. baseImage를 경량화된 이미지를 사용한다. 
   2. production에 사용되는 Dependencies만 사용하기
